@@ -14,7 +14,7 @@ if (dailyChallengeTextGeneratorType == "static-text")
 {
     builder.Services.AddSingleton<IDailyChallengeTextGenerator>(
         new DailyChallengeStaticTextGenerator(
-            dailyChallengeSection.GetValue<string>("StaticText") ?? "7" // -> Test
+            dailyChallengeSection.GetValue<string>("StaticText") ?? "Das ist der 5AHWII FingerFlitzer der viel Spaß macht!" // -> Test
         )
     );
 }
@@ -22,7 +22,7 @@ else if (dailyChallengeTextGeneratorType == "rotating-text")
 {
     builder.Services.AddSingleton<IDailyChallengeTextGenerator>(
         new DailyChallengeRotatingTextGenerator(
-            dailyChallengeSection.GetSection("TextsToRotate").Get<string[]>() ?? ["7"]
+            dailyChallengeSection.GetSection("TextsToRotate").Get<string[]>() ?? ["Hallo das ist der 5AHWII Finger Flitzer123!"]
         )
     );
 }

@@ -17,6 +17,8 @@ az webapp create `
   --plan asp-fingerflitzer `
   --resource-group rg-fingerflitzer| Out-Null
 
+  az ad sp create-for-rbac --name "myApp" --role contributor --scopes /subscriptions/<subscription-id>/resourceGroups/<group-name>/providers/Microsoft.Web/sites/<app-name> --json-auth
+
 # Allow access from web app to database
 # see https://learn.microsoft.com/en-us/azure/app-service/tutorial-connect-msi-azure-database
 # az extension add --name serviceconnector-passwordless --upgrade
