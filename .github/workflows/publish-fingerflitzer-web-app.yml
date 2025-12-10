@@ -8,20 +8,18 @@
 #
 # 1. Download the Publish Profile for your Azure Web App.
 #    You can download this file from the Overview page of your Web App in the Azure Portal.
-#    More info:
+#    More information:
 #    https://docs.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=applevel#generate-deployment-credentials
 #
-# 2. Create a secret in your repository named AZURE_WEBAPP_PUBLISH_PROFILE,
-#    paste the publish profile contents as the value of the secret.
+# 2. Create a secret in your repository named AZURE_WEBAPP_PUBLISH_PROFILE
+#    and paste the publish profile contents as the value.
 #
-# 3. Change the value for the AZURE_WEBAPP_NAME. Optionally adjust package path and .NET version.
+# 3. Adjust the AZURE_WEBAPP_NAME, AZURE_WEBAPP_PACKAGE_PATH, and DOTNET_VERSION variables if needed.
 #
-# More info on GitHub Actions for Azure:
-# https://github.com/Azure/Actions
-# Azure Web Apps Deploy action:
-# https://github.com/Azure/webapps-deploy
-# Sample workflows:
-# https://github.com/Azure/actions-workflow-samples
+# More information:
+# GitHub Actions for Azure → https://github.com/Azure/Actions
+# Azure Web Apps Deploy action → https://github.com/Azure/webapps-deploy
+# More samples → https://github.com/Azure/actions-workflow-samples
 
 name: Publish HTLVBFingerFlitzer web app
 
@@ -32,8 +30,7 @@ env:
 
 on:
   push:
-    branches:
-      - "main"
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -86,7 +83,7 @@ jobs:
         with:
           name: .net-app
 
-      - name: Login via Azure CLI
+      - name: Login via azure CLI
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -96,4 +93,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: staging
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
